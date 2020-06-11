@@ -19,7 +19,6 @@ Airplane.prototype.land = function () {
   this.isFlying = false;
 };
 
-
 /*
 // 👇 COMPLETE YOUR WORK BELOW 👇
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -46,26 +45,20 @@ function Person(name, age) {
 }
 
 Person.prototype.eat = function letsEat(food) {
-
-  if (this.stomach.length < 10){
-      this.stomach.push(letsEat)}
-  else {
-    return "I am full!";}
-}
-
-Person.prototype.poop = function bathroomBreak(food){
-  if (this.stomach.length = 10) {
-    this.stomach.pop();
+  if (this.stomach.length < 10) {
+    this.stomach.push(food);
   }
-}
+};
 
-Person.prototype.toString = function(name, age){
-  return '${name}, ${age}';
-}
+Person.prototype.poop = function bathroomBreak(food) {
+  if ((this.stomach.length = 10)) {
+    this.stomach = [];
+  }
+};
 
-const lisa = new Person ("Lisa", "30")
-
-lisa.eat("Banana")
+Person.prototype.toString = function speak() {
+  return `${this.name}, ${this.age}`;
+};
 
 /*
   TASK 2
@@ -82,12 +75,15 @@ lisa.eat("Banana")
 */
 
 function Car(model, milesPerGallon) {
-    this.model = model;
-    this.milesPerGallon = milesPerGallon;
-    this.tank = [];
-    this.odometer = [];
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 }
 
+Car.prototype.fill = function fillerUp(gallons, tank) {
+  this.tank = this.tank + gallons;
+};
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -95,28 +91,44 @@ function Car(model, milesPerGallon) {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
 
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
 }
+
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function () {
+  return `Playing with ${this.favoriteToy}`
+};
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Global Binding = simple function call
+  2. Implicit Binding = "this" points to the object that is to the left of the period.
+  3. New Binding = constructes a new object that "this" points to
+  4. Explicit Binding = "this" is invoked with call(arguments passed as comma-separted 
+      list) or apply(an array of arguments)
 */
 
-
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
-if (typeof exports !== 'undefined') {
-  module.exports = module.exports || {}
-  if (Airplane) { module.exports.Airplane = Airplane }
-  if (Person) { module.exports.Person = Person }
-  if (Car) { module.exports.Car = Car }
-  if (Baby) { module.exports.Baby = Baby }
+if (typeof exports !== "undefined") {
+  module.exports = module.exports || {};
+  if (Airplane) {
+    module.exports.Airplane = Airplane;
+  }
+  if (Person) {
+    module.exports.Person = Person;
+  }
+  if (Car) {
+    module.exports.Car = Car;
+  }
+  if (Baby) {
+    module.exports.Baby = Baby;
+  }
 }
